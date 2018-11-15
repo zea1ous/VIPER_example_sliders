@@ -16,6 +16,10 @@ struct RGBColor {
     let red: CGFloat
     let green: CGFloat
     let blue: CGFloat
+    
+    func getRGB() -> RGBColor {
+        return RGBColor(red: red/255, green: green/255, blue: blue/255)
+    }
 }
 
 class HomeViewController: UIViewController {
@@ -24,6 +28,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var blueSlider: UISlider!
     @IBOutlet weak var greenSlider: UISlider!
     @IBOutlet weak var rgbText: UILabel!
+    
+    var presenter: HomeViewPresentation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +69,10 @@ class HomeViewController: UIViewController {
     func loadCurrentColor() -> (CGFloat, CGFloat, CGFloat) {
         return  (CGFloat(UserDefaults.standard.float(forKey: "red")), CGFloat(UserDefaults.standard.float(forKey: "green")), CGFloat(UserDefaults.standard.float(forKey: "blue")))
     }
+    
+}
+
+extension HomeViewController: HomeView {
     
 }
 
