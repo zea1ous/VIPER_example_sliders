@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    lazy var navigationController: UINavigationController = {
+    private lazy var navigationController: UINavigationController = {
         let navigationController = UINavigationController()
         navigationController.isNavigationBarHidden = true
         return navigationController
@@ -22,11 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        window?.rootViewController = navigationController
+        guard let window = window else { return false }
+       
+        window.makeKeyAndVisible()
+        window.rootViewController = navigationController
         
-        guard let homveViewBuilder = HomeViewBuilder.assembleModule() else { return false }
-        self.navigationController.viewControllers = [homveViewBuilder]
+        guard let homeAssembly = HomeAssembly.assembleModule() else { return false }
+        self.navigationController.viewControllers = [homeAssembly]
         
         return true
     }

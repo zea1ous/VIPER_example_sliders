@@ -1,5 +1,5 @@
 //
-//  AppColorDataObject.swift
+//  ColorEntity.swift
 //  viper_basic_slider
 //
 //  Created by Alexander Kolovatov on 15/11/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppColorDataObject {
+class ColorEntity {
     
     func save(rgb: (CGFloat, CGFloat, CGFloat)) {
         UserDefaults.standard.set(rgb.0, forKey: "red")
