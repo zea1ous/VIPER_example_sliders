@@ -10,15 +10,38 @@ import UIKit
 
 // View
 protocol HomeView: class {
-    
+    func loadCurrentColor(rgb: (CGFloat, CGFloat, CGFloat)) 
 }
 
 // Interactor
 protocol HomeUseCase: class {
-    
+    func loadCurrentColor() -> (CGFloat, CGFloat, CGFloat)
+    func saveCurrentColor(rgb: (CGFloat, CGFloat, CGFloat))
 }
 
 class HomeInteractor: HomeUseCase {
+    
+    var appColorDataObject: AppColorDataObject?
+    
+    // Dependency injection
+    init(dataObject: AppColorDataObject = AppColorDataObject()) {
+        appColorDataObject = dataObject
+    }
+
+    /// Load current color use case handled here
+    ///
+    /// - Returns: (CGFloat, CGFloat, CGFloat)
+    func loadCurrentColor() -> (CGFloat, CGFloat, CGFloat) {
+        guard let currentRgb = appColorDataObject?.fetch() else { return (0, 0, 0) }
+        return currentRgb
+    }
+    
+    /// Save current color use case handled here
+    ///
+    /// - Parameter rgb: (CGFloat, CGFloat, CGFloat) between 0-255
+    func saveCurrentColor(rgb: (CGFloat, CGFloat, CGFloat)) {
+        appColorDataObject?.save(rgb: rgb)
+    }
     
 }
 
@@ -27,12 +50,46 @@ protocol HomeViewPresentation: class {
     var view: HomeView? { get }
     var router: HomeViewWireFrame? { get }
     var interactor: HomeUseCase? { get }
+    
+    func onLoadCurrentColor()
+    func onColorValueChange(rgb: (CGFloat, CGFloat, CGFloat))
 }
 
 class HomeViewPresenter: HomeViewPresentation {
+    
     weak var view: HomeView?
     var router: HomeViewWireFrame?
     var interactor: HomeUseCase?
+    
+    /// Load current color received from view controller.
+    func onLoadCurrentColor() {
+        
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            
+            guard let `self` = self else { return }
+            
+            guard let currentRGB = self.interactor?.loadCurrentColor() else { return }
+            
+            DispatchQueue.main.async {
+                self.view?.loadCurrentColor(rgb: currentRGB)
+            }
+        }
+    
+    }
+    
+    
+    /// When color value changes in view controller it delegates work to presenter
+    func onColorValueChange(rgb: (CGFloat, CGFloat, CGFloat)) {
+        
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            
+            guard let `self` = self else { return }
+            
+            self.interactor?.saveCurrentColor(rgb: rgb)
+        }
+        
+    }
+    
 }
 
 // Router

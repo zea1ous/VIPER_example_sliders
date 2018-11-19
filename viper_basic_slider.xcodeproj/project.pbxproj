@@ -13,6 +13,7 @@
 		58DE0541219D819700162EEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58DE0540219D819700162EEE /* Assets.xcassets */; };
 		58DE0544219D819700162EEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58DE0542219D819700162EEE /* LaunchScreen.storyboard */; };
 		58DE054C219DCB8E00162EEE /* HomeViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DE054B219DCB8E00162EEE /* HomeViewBuilder.swift */; };
+		58DE054E219DD55A00162EEE /* AppColorDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DE054D219DD55A00162EEE /* AppColorDataObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		58DE0543219D819700162EEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		58DE0545219D819700162EEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58DE054B219DCB8E00162EEE /* HomeViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewBuilder.swift; sourceTree = "<group>"; };
+		58DE054D219DD55A00162EEE /* AppColorDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorDataObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				58DE0540219D819700162EEE /* Assets.xcassets */,
 				58DE0542219D819700162EEE /* LaunchScreen.storyboard */,
 				58DE0545219D819700162EEE /* Info.plist */,
+				58DE054D219DD55A00162EEE /* AppColorDataObject.swift */,
 			);
 			path = viper_basic_slider;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58DE054E219DD55A00162EEE /* AppColorDataObject.swift in Sources */,
 				58DE054C219DCB8E00162EEE /* HomeViewBuilder.swift in Sources */,
 				58DE053C219D819400162EEE /* HomeController.swift in Sources */,
 				58DE053A219D819400162EEE /* AppDelegate.swift in Sources */,

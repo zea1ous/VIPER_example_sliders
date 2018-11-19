@@ -12,16 +12,6 @@ protocol ColorValueDelegate {
     func colorValueChange()
 }
 
-struct RGBColor {
-    let red: CGFloat
-    let green: CGFloat
-    let blue: CGFloat
-    
-    func getRGB() -> RGBColor {
-        return RGBColor(red: red/255, green: green/255, blue: blue/255)
-    }
-}
-
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var redSlider: UISlider!
@@ -34,11 +24,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
   
-        let rgb = loadCurrentColor()
-        redSlider.setValue(Float(rgb.0), animated: false)
-        greenSlider.setValue(Float(rgb.1), animated: false)
-        blueSlider.setValue(Float(rgb.2), animated: false)
-        view.backgroundColor = UIColor.init(displayP3Red: rgb.0/255, green: rgb.1/255, blue: rgb.2/255, alpha: 1)
+        loadCurrentColor()
     }
 
     @IBAction func handleRedSlider(_ sender: UISlider) {
@@ -57,22 +43,25 @@ class HomeViewController: UIViewController {
     ///
     /// - Parameter rgb: RGB
     func saveCurrentColor(rgb: (CGFloat, CGFloat, CGFloat)) {
-        UserDefaults.standard.set(rgb.0, forKey: "red")
-        UserDefaults.standard.set(rgb.1, forKey: "green")
-        UserDefaults.standard.set(rgb.2, forKey: "blue")
+        presenter?.onColorValueChange(rgb: rgb)
     }
     
-    
-    /// Load current color RGB values.
-    ///
-    /// - Returns: RGB color
-    func loadCurrentColor() -> (CGFloat, CGFloat, CGFloat) {
-        return  (CGFloat(UserDefaults.standard.float(forKey: "red")), CGFloat(UserDefaults.standard.float(forKey: "green")), CGFloat(UserDefaults.standard.float(forKey: "blue")))
+    func loadCurrentColor()  {
+        print("ViewController calling delegate loadCurrent color to presenter")
+        
+        presenter?.onLoadCurrentColor()
     }
     
 }
 
 extension HomeViewController: HomeView {
+    
+    func loadCurrentColor(rgb: (CGFloat, CGFloat, CGFloat)) {
+        redSlider.setValue(Float(rgb.0), animated: false)
+        greenSlider.setValue(Float(rgb.1), animated: false)
+        blueSlider.setValue(Float(rgb.2), animated: false)
+        view.backgroundColor = UIColor.init(displayP3Red: rgb.0/255, green: rgb.1/255, blue: rgb.2/255, alpha: 1)
+    }
     
 }
 
