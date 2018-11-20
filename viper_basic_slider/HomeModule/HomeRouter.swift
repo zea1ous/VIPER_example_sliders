@@ -10,9 +10,23 @@ import UIKit
 
 // Router
 protocol HomeViewWireFrame: class {
-    var viewController: UIViewController? { get }
+    func showAnotherModule()
+    func prepare(for segue: UIStoryboardSegue, sender: Any?)
 }
 
 class HomeViewRouter: HomeViewWireFrame {
-    var viewController: UIViewController?
+    
+    weak var viewController: HomeViewController!
+    
+    init(viewController: HomeViewController) {
+        self.viewController = viewController
+    }
+    
+    func showAnotherModule() {
+        viewController.performSegue(withIdentifier: "anotherSegue", sender: nil)
+    }
+    
+    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // prepare here some data for destination viewController
+    }
 }

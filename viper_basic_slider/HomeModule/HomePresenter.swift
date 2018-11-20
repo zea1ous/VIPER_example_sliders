@@ -15,6 +15,7 @@ protocol HomeViewPresentation: class {
     
     func onLoadCurrentColor()
     func onColorValueChange(rgb: (CGFloat, CGFloat, CGFloat))
+    func showAnotherViewControllerPressed()
 }
 
 class HomeViewPresenter: HomeViewPresentation {
@@ -50,6 +51,11 @@ class HomeViewPresenter: HomeViewPresentation {
             interactor.saveCurrentColor(rgb: rgb)
         }
         
+    }
+    
+    func showAnotherViewControllerPressed() {
+        guard let router = router else { return }
+        router.showAnotherModule()
     }
     
 }

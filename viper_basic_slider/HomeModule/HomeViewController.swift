@@ -43,6 +43,10 @@ class HomeViewController: UIViewController {
         colorValueChange()
     }
     
+    @IBAction func hanleShowAnotherController(_ sender: UIButton) {
+        guard let presenter = presenter else { return }
+        presenter.showAnotherViewControllerPressed()
+    }
     /// RGB values to be saved. Values passed should be between 0-255.
     ///
     /// - Parameter rgb: RGB
@@ -54,6 +58,14 @@ class HomeViewController: UIViewController {
     func loadCurrentColor()  {
         guard let presenter = presenter else { return }
         presenter.onLoadCurrentColor()
+    }
+    
+    // MARK: - Navigation methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let presenter = presenter else { return }
+        guard let router = presenter.router else { return }
+        router.prepare(for: segue, sender: sender)
     }
     
 }

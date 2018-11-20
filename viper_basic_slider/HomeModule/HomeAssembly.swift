@@ -14,11 +14,12 @@ class HomeAssembly {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let presenter = HomeViewPresenter()
         let interactor = HomeInteractor()
-        let router = HomeViewRouter()
         
         guard let view = storyboard.instantiateViewController(withIdentifier: "homeViewController") as? HomeViewController else {
             return nil
         }
+        
+        let router = HomeViewRouter(viewController: view)
         
         view.presenter = presenter
         
